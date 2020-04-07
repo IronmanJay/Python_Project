@@ -1,0 +1,56 @@
+1、Tensorflow 去除警告：
+    import os
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+2、pip下载慢，更换国内源:
+    pip install django -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+3、定位元素find_element()和find_elements()的区别
+    ①.find_element()只会查找页面符合条件的第一个节点，并返回；但是定位不到元素则会报错。
+	②.find_elements()查找多个元素并且返回一个列表，列表里的元素全是WebElement节点对象；当定位不到元素时不会报错，会返回一个空列表。
+	③.如果想要获取相关内容(只对find_element()有效,列表对象没有这个属性) 使用 .text。
+	④.如果想要获取相关属性的值(如href对应的链接等,只对find_element()有效,列表对象没有这个属性):使用 .get_attribute("href")。
+	⑤.find_element()返回一个,find_elements()返回一个列表
+	总结：当返回有可能是空值或者查找多个元素时使用find_elements()。
+
+4、selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":".btn btn-account btn-active"}
+  (Session info: chrome=75.0.3770.80)报错(iframe切换)
+
+    相关代码:
+    driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))
+    login_ele = driver.find_element_by_css_selector("li.account-tab-account")
+    login_ele.click()
+
+    找到标签名字，转移标签，然后使用这个标签的内容获取到登录按钮的信息，然后使用API点击登录
+
+5、tensorboard --logdir="path"遇到pkg_resources.VersionConflict: (setuptools 39.1.0 (d:\software\python-3.7.0\错误
+    在Anaconda的环境下运行
+
+6、Spyder错误：SyntaxError: EOL while scanning string literal
+    翻译：语法错误：扫描字符串文本时下线
+    解决：少了个引号
+
+7、设置PL/SQL Developer 使用plsql时可视化输出结果语句
+    set serveroutput on
+
+8、Python爬虫报错ValueError: too many values to unpack (expected 2)
+    翻译：值错误：要解包的值太多（应为2）
+    解决：1、是否在遍历字典的时候没有使用items。
+         2、在调用函数的时候，如果函数返回值是5个，而你只写了3个的话，也会报这个错误，所以将所以的返回值都写出来，不管你用还是不用。
+
+9、Spyder错误：ValueError: Shape () must have rank at least 1
+    原因:op将数据当成张量处理
+    解决:放入["data",],让tensorflow把他当作列表处理
+
+10、输入mysql命令行的服务启用命令:
+    net start mysql （对应的服务关闭命令为 net stop mysql）
+
+11、Python strip()方法：
+    Python strip() 方法用于移除字符串头尾指定的字符（默认为空格或换行符）或字符序列。
+    注意：该方法只能删除开头或是结尾的字符，不能删除中间部分的字符。
+
+12、本地提交github代码超时问题：
+    在git命令行输入如下：
+        git config --global http.proxy 'socks5://127.0.0.1:1080'
+        or/and
+        git config --global https.proxy 'socks5://127.0.0.1:1080'
