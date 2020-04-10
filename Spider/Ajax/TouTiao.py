@@ -78,8 +78,7 @@ def get_images(json):
                         else:
                             images = i.get('image_list')
                             for image in images:
-                                origin_image = re.sub("list.*?pgc-image", "large/pgc-image",
-                                                      image.get('url'))  # 改成origin/pgc-image是原图
+                                origin_image = re.sub("list.*?pgc-image", "large/pgc-image",image.get('url'))  # 改成origin/pgc-image是原图
                                 yield {
                                     'image': origin_image,
                                     'title': title
