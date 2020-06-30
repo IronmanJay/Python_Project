@@ -1,28 +1,21 @@
 # -*- coding: utf-8 -*-
 import scrapy
+from lxml import etree
 from Travel.items import TravelItem
 
 class TravelSpider(scrapy.Spider):
     name = 'travel'
-    allowed_domains = ['https://www.cncn.com']
-    start_urls = ['https://www.cncn.com/top/']
+    allowed_domains = ['www.cncn.com/top/']
+    start_urls = ['http://www.cncn.com/top//']
 
     def parse(self, response):
-        allHref = response.xpath("//div[@class='tit']/span/a")
-        for Href in allHref:
-            href = Href.xpath("./@href").extract_first()
-            print(href)
-            yield scrapy.Request(
-                href,
-                callback=self.parseDetail,
-                dont_filter=True
-            )
-
-    def parseDetail(self,response):
-        datas = response.xpath("//div[@class='resizeimg4']/div/li/a")
-        for data in datas:
-            item = TravelItem()
-            item['name'] = data.xpath("./text()").extract()[0]
-            item['link'] = data.xpath("./@href").extract()[0]
+        data = response.body
+        item = TravelItem()
+        html = etree.HTML(data)
+        names = html.xpath("//ul/li/a/text()")
+        links = html.xpath("//ul/li/a/@href")
+        for name,link in zip(names,links):
+            item['name'] = name
+            item['link'] = link
             yield item
 
