@@ -1,5 +1,0 @@
-data/
-models/
-checkpoints/
-!data/download_data.sh
-!models/download_models.sh
