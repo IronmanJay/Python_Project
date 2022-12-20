@@ -6,7 +6,7 @@
 from typing import List
 
 
-class p338_CountingBits:
+class Solution:
     def countBits(self, n: int) -> List[int]:
         res = [0] * (n + 1)
         res[0] = 0
@@ -19,7 +19,7 @@ class p338_CountingBits:
 
 
 if __name__ == '__main__':
-    solution = p338_CountingBits()
+    solution = Solution()
     n = 2
     res = solution.countBits(n)
     print(res)
